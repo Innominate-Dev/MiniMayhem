@@ -1,0 +1,62 @@
+{
+    "name": "PlayerController",
+    "maps": [
+        {
+            "name": "Dice Rolling",
+            "id": "bf7f7671-08d9-4f36-aa42-630537f6c6bd",
+            "actions": [
+                {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "d4538eb8-851d-47de-9587-02ffc3b42b0e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "45aa2c62-c9bb-46d5-b4d2-952c05a427b2",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player",
+            "id": "db12090b-636b-4c20-b4a9-bc05148f5cfa",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "beb1690c-c3aa-4c3c-b17a-ecae5cec6d92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "57b86c9a-86be-48b6-9d32-a287ee2b20c8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
