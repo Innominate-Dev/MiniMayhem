@@ -8,6 +8,11 @@ public class DiceController : MonoBehaviour
     [Header("Dice Settings")]
 
     [SerializeField] public GameObject dice;
+    //[SerializeField] public GameObject dice2;
+    [SerializeField] public Rigidbody diceRB;
+    //[SerializeField] public Rigidbody diceRB2;
+    [SerializeField] public List<GameObject> diceNum;
+    [SerializeField] public GameObject backWall;
     [SerializeField] public int diceRolled;
 
 
@@ -34,9 +39,19 @@ public class DiceController : MonoBehaviour
 
         if (context.performed)
         {
-            diceRolled = Random.Range(0, 6);
-
             Debug.Log(diceRolled);
+
+            float dirX = Random.Range(0, 500);
+            float dirY = Random.Range(0, 500);
+            float dirZ = Random.Range(0, 500);
+
+
+            diceRB.AddForce(transform.up * 350);
+            diceRB.AddTorque(dirX, dirY, dirZ);
+            //diceRB2.AddForce(transform.up * 350);
+            //diceRB2.AddTorque(dirX, dirY, dirZ); //For Dice 2
+
+
         }
 
  
