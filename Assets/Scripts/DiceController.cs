@@ -51,9 +51,8 @@ public class DiceController : MonoBehaviour
             //diceRB2.AddForce(transform.up * 350);
             //diceRB2.AddTorque(dirX, dirY, dirZ); //For Dice 2
 
+            
 
         }
-
- 
     }
 }
