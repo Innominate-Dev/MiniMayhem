@@ -15,16 +15,20 @@ public class DiceController : MonoBehaviour
     [SerializeField] public GameObject backWall;
     [SerializeField] public int diceRolled;
 
-
     [Header("Input System")]
     [SerializeField] private PlayerInput playerInput;
 
     [Header("Waypoints")]
     public List<GameObject> waypointList;
 
+    [Header("Script References")]
+
+    [SerializeField] NumberRolled numRolled;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        numRolled = FindAnyObjectByType<NumberRolled>();
     }
 
     // Update is called once per frame
@@ -39,7 +43,6 @@ public class DiceController : MonoBehaviour
 
         if (context.performed)
         {
-            Debug.Log(diceRolled);
 
             float dirX = Random.Range(0, 500);
             float dirY = Random.Range(0, 500);
@@ -51,8 +54,9 @@ public class DiceController : MonoBehaviour
             //diceRB2.AddForce(transform.up * 350);
             //diceRB2.AddTorque(dirX, dirY, dirZ); //For Dice 2
 
-            
+            diceRolled = numRolled.diceRolled;
 
+            Debug.Log(diceRolled);
         }
     }
 }
