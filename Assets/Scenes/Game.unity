@@ -12389,6 +12389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c15cc2ff3c0611c46a1c4ccfdf62aaf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceRb: {fileID: 4056921723268296183}
   diceRolled: 0
   timer: 0
 --- !u!1 &1561039390

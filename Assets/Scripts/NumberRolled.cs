@@ -7,6 +7,7 @@ public class NumberRolled : MonoBehaviour
 {
     //private GameObject diceSide;
 
+    public Rigidbody diceRb;
     public int diceRolled;
     public float timer;
 
@@ -25,9 +26,8 @@ public class NumberRolled : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        timer -= Time.deltaTime;
-        timer = Mathf.Round(timer * 100f) / 100f;
-        if (timer < 0)
+        
+        if (diceRb.velocity == Vector3.zero)
         {
             if (other.name == "Num1")
             {
