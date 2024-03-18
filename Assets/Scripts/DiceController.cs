@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class DiceController : MonoBehaviour
 {
@@ -14,6 +15,20 @@ public class DiceController : MonoBehaviour
     [SerializeField] public List<GameObject> diceNum;
     [SerializeField] public GameObject backWall;
     [SerializeField] public int diceRolled;
+    [SerializeField] private bool hasBeenRolled;
+
+    [Header("Positions")]
+
+    [SerializeField] private int currentPos = 0;
+
+    [Header("Player Settings")]
+
+    [SerializeField] public GameObject player1;
+
+    [Header("Camera")]
+
+    [SerializeField] public Camera rollingCam;
+    [SerializeField] public Camera mainCam;
 
     [Header("Input System")]
     [SerializeField] private PlayerInput playerInput;
@@ -34,7 +49,19 @@ public class DiceController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // DICE ROLLING LOGIC //
 
+        if (hasBeenRolled)
+        {
+            if (diceRB.velocity == Vector3.zero) // sees if the dice is rolling and constantly updates if true to see if it has stopped rolling
+            {
+                StartCoroutine(moveToWaypoint());
+
+                hasBeenRolled = false;
+
+                Debug.Log(diceRolled);
+            }
+        }
     }
 
     public void RollingDice(InputAction.CallbackContext context)
@@ -43,20 +70,39 @@ public class DiceController : MonoBehaviour
 
         if (context.performed)
         {
+            mainCam.gameObject.SetActive(false);
+            rollingCam.gameObject.SetActive(true);
 
             float dirX = Random.Range(0, 500);
             float dirY = Random.Range(0, 500);
             float dirZ = Random.Range(0, 500);
-
 
             diceRB.AddForce(transform.up * 350);
             diceRB.AddTorque(dirX, dirY, dirZ);
             //diceRB2.AddForce(transform.up * 350);
             //diceRB2.AddTorque(dirX, dirY, dirZ); //For Dice 2
 
-            diceRolled = numRolled.diceRolled;
 
-            Debug.Log(diceRolled);
         }
+        if(context.canceled)
+        {
+            hasBeenRolled = true;
+
+            //when the button is pressed and finished it runs this code.
+        }
+    }
+
+    IEnumerator moveToWaypoint()
+    {
+        yield return new WaitForSeconds(2f);
+
+        diceRolled = numRolled.diceRolled;
+
+        int newPos = (diceRolled + currentPos);
+
+        Vector3 moveToPoint = waypointList[newPos].gameObject.transform.position;
+
+        player1.transform.position = moveToPoint;
+        currentPos = currentPos + diceRolled;
     }
 }

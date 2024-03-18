@@ -19,7 +19,7 @@
                 {
                     "name": "",
                     "id": "45aa2c62-c9bb-46d5-b4d2-952c05a427b2",
-                    "path": "<Keyboard>/x",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
