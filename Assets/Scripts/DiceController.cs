@@ -11,6 +11,7 @@ public class DiceController : MonoBehaviour
     [SerializeField] public GameObject dice;
     //[SerializeField] public GameObject dice2;
     [SerializeField] public Rigidbody diceRB;
+    [SerializeField] private float rollForce;
     //[SerializeField] public Rigidbody diceRB2;
     [SerializeField] public List<GameObject> diceNum;
     [SerializeField] public GameObject backWall;
@@ -53,15 +54,17 @@ public class DiceController : MonoBehaviour
 
         if (hasBeenRolled)
         {
+            Debug.Log(diceRB.velocity);
             if (diceRB.velocity == Vector3.zero) // sees if the dice is rolling and constantly updates if true to see if it has stopped rolling
             {
-                StartCoroutine(moveToWaypoint());
-
                 hasBeenRolled = false;
 
-                Debug.Log(diceRolled);
+                StartCoroutine(moveToWaypoint());
+
             }
         }
+
+
     }
 
     public void RollingDice(InputAction.CallbackContext context)
@@ -77,25 +80,17 @@ public class DiceController : MonoBehaviour
             float dirY = Random.Range(0, 500);
             float dirZ = Random.Range(0, 500);
 
-            diceRB.AddForce(transform.up * 350);
+            diceRB.velocity = transform.up * rollForce;
             diceRB.AddTorque(dirX, dirY, dirZ);
             //diceRB2.AddForce(transform.up * 350);
             //diceRB2.AddTorque(dirX, dirY, dirZ); //For Dice 2
 
-
-        }
-        if(context.canceled)
-        {
             hasBeenRolled = true;
-
-            //when the button is pressed and finished it runs this code.
         }
     }
 
     IEnumerator moveToWaypoint()
     {
-        yield return new WaitForSeconds(2f);
-
         diceRolled = numRolled.diceRolled;
 
         int newPos = (diceRolled + currentPos);
@@ -104,5 +99,7 @@ public class DiceController : MonoBehaviour
 
         player1.transform.position = moveToPoint;
         currentPos = currentPos + diceRolled;
+
+        yield return null;
     }
 }
