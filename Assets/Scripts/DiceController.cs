@@ -98,6 +98,7 @@ public class DiceController : MonoBehaviour
         Vector3 moveToPoint = waypointList[newPos].gameObject.transform.position;
 
         player1.transform.position = moveToPoint;
+        //player1.MoveTowards()
         currentPos = currentPos + diceRolled;
 
         yield return null;
