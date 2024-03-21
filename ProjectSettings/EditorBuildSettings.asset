@@ -4,6 +4,21 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/PlayerSetup.unity
+    guid: 0c88e752c9581bf4ea734582a3cb3c2d
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 508727b09095b9344b24303f6406a2eb
+  - enabled: 1
+    path: Assets/Scenes/HitTheTarget.unity
+    guid: 2c77f756cf013fd448695ceae2217a2e
+  - enabled: 1
+    path: Assets/Scenes/TestingScene.unity
+    guid: 3d7e2d079a424d84e838e067a6864bf6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9a7db46e27ba35949864fe1d64de470c, type: 2}

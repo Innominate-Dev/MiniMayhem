@@ -7,22 +7,33 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
 
-    private PlayerInput playerInput;
+    private PlayerConfiguration playerConfig;
     private Mover2 mover;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private MeshRenderer playerMesh;
+
+    private PlayerController controls;
+
+    private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        var movers = FindObjectsOfType<Mover2>();
-        var index = playerInput.playerIndex;
-        mover = movers.FirstOrDefault(m => m.GetPlayerIndex() == index);
+        mover = GetComponent<Mover2>();
+        controls = new PlayerController();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitializePlayer(PlayerConfiguration pc)
     {
-        
+        playerConfig = pc;
+        playerMesh.material = pc.PlayerMaterial;
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(InputAction.CallbackContext obj)
+    {
+        if(obj.action.name == controls.PlayerMovement.Movement.name)
+        {
+            OnMove(obj);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
