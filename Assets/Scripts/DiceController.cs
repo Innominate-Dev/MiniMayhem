@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -24,7 +25,21 @@ public class DiceController : MonoBehaviour
 
     [Header("Player Settings")]
 
-    [SerializeField] public GameObject player1;
+    [SerializeField] 
+    public List<GameObject> players;
+    [SerializeField]
+    private Transform[] playerSpawns;
+    [SerializeField]
+    private GameObject playerPrefab;
+
+    public enum diceRoller
+    {
+        Player1,
+        Player2,
+        Player3,
+        Player4
+    }
+
 
     [Header("Camera")]
 
@@ -45,6 +60,18 @@ public class DiceController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         numRolled = FindAnyObjectByType<NumberRolled>();
+       
+    }
+
+    private void Start()
+    {
+        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
+        for (int i = 0; i < playerConfigs.Length; i++)
+        {
+            var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
+            player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[i]);
+            players.Add(player);
+        }
     }
 
     // Update is called once per frame
@@ -97,7 +124,7 @@ public class DiceController : MonoBehaviour
 
         Vector3 moveToPoint = waypointList[newPos].gameObject.transform.position;
 
-        player1.transform.position = moveToPoint;
+        //player.transform.position = moveToPoint;
         //player1.MoveTowards()
         currentPos = currentPos + diceRolled;
 
