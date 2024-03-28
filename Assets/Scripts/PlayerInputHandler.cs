@@ -9,6 +9,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private PlayerConfiguration playerConfig;
     private Mover2 mover;
+    private DiceController diceController;
 
     [SerializeField]
     private MeshRenderer playerMesh;
@@ -19,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         mover = GetComponent<Mover2>();
         controls = new PlayerController();
+        diceController = FindAnyObjectByType<DiceController>();
     }
 
     public void InitializePlayer(PlayerConfiguration pc)
@@ -34,6 +36,10 @@ public class PlayerInputHandler : MonoBehaviour
         {
             OnMove(obj);
         }
+        if(obj.action.name == controls.PlayerMovement.RollDice.name)
+        {
+            DiceRolling(obj);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -42,5 +48,12 @@ public class PlayerInputHandler : MonoBehaviour
         {
             mover.SetInputVector(context.ReadValue<Vector2>());
         }
+    }
+
+    public void DiceRolling(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.control + " <-- controller path /// --> Player Index" + playerConfig.PlayerIndex);
+
+        diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
     }
 }

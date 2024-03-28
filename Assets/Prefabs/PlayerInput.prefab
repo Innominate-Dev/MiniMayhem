@@ -78,6 +78,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: beb1690c-c3aa-4c3c-b17a-ecae5cec6d92
     m_ActionName: PlayerMovement/Movement[/XInputControllerWindows1/leftStick,/XInputControllerWindows2/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8276aa41-d6b0-47b1-b8c1-83b7954c593e
+    m_ActionName: PlayerMovement/Select[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 61ab7cac-35bc-496b-ae0a-028896dc30c1
+    m_ActionName: PlayerMovement/RollDice[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -95,3 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f19e6436c2c4448b66d348261bbb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMesh: {fileID: 0}

@@ -33,7 +33,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""id"": ""d4538eb8-851d-47de-9587-02ffc3b42b0e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -72,6 +72,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RollDice"",
+                    ""type"": ""Button"",
+                    ""id"": ""61ab7cac-35bc-496b-ae0a-028896dc30c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -107,6 +116,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c7c7764-af3c-4e3a-a59f-414bd5f3bcf1"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollDice"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -120,6 +140,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Select = m_PlayerMovement.FindAction("Select", throwIfNotFound: true);
+        m_PlayerMovement_RollDice = m_PlayerMovement.FindAction("RollDice", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,12 +250,14 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Select;
+    private readonly InputAction m_PlayerMovement_RollDice;
     public struct PlayerMovementActions
     {
         private @PlayerController m_Wrapper;
         public PlayerMovementActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Select => m_Wrapper.m_PlayerMovement_Select;
+        public InputAction @RollDice => m_Wrapper.m_PlayerMovement_RollDice;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -250,6 +273,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @RollDice.started += instance.OnRollDice;
+            @RollDice.performed += instance.OnRollDice;
+            @RollDice.canceled += instance.OnRollDice;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -260,6 +286,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @RollDice.started -= instance.OnRollDice;
+            @RollDice.performed -= instance.OnRollDice;
+            @RollDice.canceled -= instance.OnRollDice;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -285,5 +314,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnRollDice(InputAction.CallbackContext context);
     }
 }

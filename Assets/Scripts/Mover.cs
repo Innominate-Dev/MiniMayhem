@@ -220,7 +220,7 @@ public class Mover : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "EnemyBullets")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Health(15);
         }

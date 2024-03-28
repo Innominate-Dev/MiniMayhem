@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float rollingDiceTimer;
 
-    [Header("Ayaans Car")]
-    private float Timer; 
+    public List<GameObject> spectator;
+    public List<GameObject> minigameplayer;
+
 
 
     public enum gameState

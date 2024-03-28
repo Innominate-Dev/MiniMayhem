@@ -11,7 +11,7 @@
                     "id": "d4538eb8-851d-47de-9587-02ffc3b42b0e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RollDice",
+                    "type": "Button",
+                    "id": "61ab7cac-35bc-496b-ae0a-028896dc30c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -83,6 +92,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c7c7764-af3c-4e3a-a59f-414bd5f3bcf1",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RollDice",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

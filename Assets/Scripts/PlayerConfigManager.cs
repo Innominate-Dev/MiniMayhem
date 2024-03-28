@@ -51,8 +51,9 @@ public class PlayerConfigManager : MonoBehaviour
     {
         Debug.Log("Player Joined " + pi.playerIndex);
         pi.transform.SetParent(transform);
-        if(!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex)) 
+        if(!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
+            Debug.Log(playerConfigs.Count.ToString());
             playerConfigs.Add(new PlayerConfiguration(pi));
         }
     }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,6 +24,7 @@ public class DiceController : MonoBehaviour
     [Header("Positions")]
 
     [SerializeField] private int currentPos = 0;
+    [SerializeField] private int plrRollingIndex = 1;
 
     [Header("Player Settings")]
 
@@ -32,7 +35,15 @@ public class DiceController : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
 
-    public enum diceRoller
+    public GameObject currentPlayer;
+
+    public Vector3 moveToPoint;
+     
+    public bool isMoving;
+
+    public PlayerTurn playerTurn;
+
+    public enum PlayerTurn
     {
         Player1,
         Player2,
@@ -40,14 +51,15 @@ public class DiceController : MonoBehaviour
         Player4
     }
 
-
     [Header("Camera")]
 
     [SerializeField] public Camera rollingCam;
     [SerializeField] public Camera mainCam;
 
     [Header("Input System")]
-    [SerializeField] private PlayerInput playerInput;
+
+    [SerializeField] public InputActionProperty rollingButton;
+    public bool has_been_pushed;
 
     [Header("Waypoints")]
     public List<GameObject> waypointList;
@@ -55,23 +67,24 @@ public class DiceController : MonoBehaviour
     [Header("Script References")]
 
     [SerializeField] NumberRolled numRolled;
+    [SerializeField] Mover2 mover;
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
         numRolled = FindAnyObjectByType<NumberRolled>();
-       
     }
 
     private void Start()
     {
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
-        for (int i = 0; i < playerConfigs.Length; i++)
+        for (int p = 0; p < playerConfigs.Length; p++)
         {
-            var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
-            player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[i]);
+            var player = Instantiate(playerPrefab, playerSpawns[p].position, playerSpawns[p].rotation, gameObject.transform);
+            player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[p]);
             players.Add(player);
         }
+
+        mover = FindAnyObjectByType<Mover2>();
     }
 
     // Update is called once per frame
@@ -79,33 +92,51 @@ public class DiceController : MonoBehaviour
     {
         // DICE ROLLING LOGIC //
 
+        float isPressing = rollingButton.action.ReadValue<float>();
+
+        if (isPressing > 0.5f && !has_been_pushed)
+        {
+            has_been_pushed = true;
+            //RollingDice();
+        }
+        if (isPressing < 0.5f)
+        {
+            has_been_pushed = false;
+        }
+
+
         if (hasBeenRolled)
         {
-            Debug.Log(diceRB.velocity);
+            
             if (diceRB.velocity == Vector3.zero) // sees if the dice is rolling and constantly updates if true to see if it has stopped rolling
             {
                 hasBeenRolled = false;
 
-                StartCoroutine(moveToWaypoint());
-
+                StartCoroutine(MoveToWaypoint());
             }
         }
 
-
+        if (isMoving)
+        {
+            currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.gameObject.transform.position, moveToPoint, 1f *Time.deltaTime);
+            
+        }
     }
 
-    public void RollingDice(InputAction.CallbackContext context)
+    public void RollingDice(int pi, bool isPressed)
     {
         //Debug.Log("Rolling Dice" + context.phase);
 
-        if (context.performed)
+        pi++;
+
+        if(pi == plrRollingIndex && isPressed == true)
         {
             mainCam.gameObject.SetActive(false);
             rollingCam.gameObject.SetActive(true);
 
-            float dirX = Random.Range(0, 500);
-            float dirY = Random.Range(0, 500);
-            float dirZ = Random.Range(0, 500);
+            float dirX = UnityEngine.Random.Range(0, 500);
+            float dirY = UnityEngine.Random.Range(0, 500);
+            float dirZ = UnityEngine.Random.Range(0, 500);
 
             diceRB.velocity = transform.up * rollForce;
             diceRB.AddTorque(dirX, dirY, dirZ);
@@ -116,17 +147,66 @@ public class DiceController : MonoBehaviour
         }
     }
 
-    IEnumerator moveToWaypoint()
+    public void WhoIsRollingDice(int index)
     {
+        if (index == 1) { playerTurn = PlayerTurn.Player1; }
+        if (index == 2) { playerTurn = PlayerTurn.Player2; }
+        if (index == 3) { playerTurn = PlayerTurn.Player3; }
+        if (index == 4) { playerTurn = PlayerTurn.Player4; }
+    }
+
+    public void NextPlayerRolling()
+    {
+        if (plrRollingIndex < players.Count)
+        {
+            Debug.Log("PLAYER ROLLING IS!" + plrRollingIndex);
+            plrRollingIndex++; // changes the person rolling enum state
+            WhoIsRollingDice(plrRollingIndex);
+        }
+        else
+        {
+            plrRollingIndex = 1;
+            WhoIsRollingDice(plrRollingIndex);
+        }
+
+    }
+
+    IEnumerator MoveToWaypoint()
+    {
+        //GameObject currentPlayer = null;
+
+        if (playerTurn == PlayerTurn.Player1) { currentPlayer = players[0];}
+        else if (playerTurn == PlayerTurn.Player2) { currentPlayer = players[1];}
+        else if (playerTurn == PlayerTurn.Player3) { currentPlayer = players[2];}
+        else if (playerTurn == PlayerTurn.Player4) { currentPlayer = players[3];}
+
         diceRolled = numRolled.diceRolled;
 
-        int newPos = (diceRolled + currentPos);
+        mover = currentPlayer.GetComponent<Mover2>();
 
-        Vector3 moveToPoint = waypointList[newPos].gameObject.transform.position;
+        
 
-        //player.transform.position = moveToPoint;
-        //player1.MoveTowards()
-        currentPos = currentPos + diceRolled;
+        int newPos = (diceRolled + mover.playerPOS);
+
+        moveToPoint = waypointList[newPos].gameObject.transform.position;
+
+        Debug.Log("CURRENT PLAYER" + currentPlayer);
+
+        ///////////////// NOTE TO SELF ////////////////
+        /// Tested out different ways of moving but I need to move these into an update feature i.e make a function that runs the lines of codes shown down below and 
+        /// make a bool that says whether the are moving which we can also enable to the main camera.
+
+        //currentPlayer.gameObject.transform.position = moveToPoint;
+        //currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.transform.position, moveToPoint * Time.deltaTime) ;
+
+        //currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.gameObject.transform.position, moveToPoint, 1f);
+        //currentPlayer.gameObject.transform.Translate(moveToPoint * 15 * Time.deltaTime);
+        //player1.MoveTowards() // Add lerping this is for FUTURE reference
+
+        isMoving = true;
+        currentPos += diceRolled;
+
+        Invoke("NextPlayerRolling", 1);
 
         yield return null;
     }
