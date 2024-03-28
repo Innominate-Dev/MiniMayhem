@@ -23,7 +23,6 @@ public class DiceController : MonoBehaviour
 
     [Header("Positions")]
 
-    [SerializeField] private int currentPos = 0;
     [SerializeField] private int plrRollingIndex = 1;
 
     [Header("Player Settings")]
@@ -90,6 +89,11 @@ public class DiceController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(rollingCam != null)
+        {
+            numRolled = FindAnyObjectByType<NumberRolled>();
+        }
+
         // DICE ROLLING LOGIC //
 
         float isPressing = rollingButton.action.ReadValue<float>();
@@ -119,7 +123,7 @@ public class DiceController : MonoBehaviour
         if (isMoving)
         {
             currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.gameObject.transform.position, moveToPoint, 1f *Time.deltaTime);
-            
+            mainCam.gameObject.SetActive(true);
         }
     }
 
@@ -131,6 +135,7 @@ public class DiceController : MonoBehaviour
 
         if(pi == plrRollingIndex && isPressed == true)
         {
+            isMoving = false;
             mainCam.gameObject.SetActive(false);
             rollingCam.gameObject.SetActive(true);
 
@@ -184,11 +189,9 @@ public class DiceController : MonoBehaviour
 
         mover = currentPlayer.GetComponent<Mover2>();
 
-        
+        mover.playerPOS = (diceRolled + mover.playerPOS);
 
-        int newPos = (diceRolled + mover.playerPOS);
-
-        moveToPoint = waypointList[newPos].gameObject.transform.position;
+        moveToPoint = waypointList[mover.playerPOS].gameObject.transform.position;
 
         Debug.Log("CURRENT PLAYER" + currentPlayer);
 
@@ -204,7 +207,6 @@ public class DiceController : MonoBehaviour
         //player1.MoveTowards() // Add lerping this is for FUTURE reference
 
         isMoving = true;
-        currentPos += diceRolled;
 
         Invoke("NextPlayerRolling", 1);
 

@@ -8331,7 +8331,6 @@ MonoBehaviour:
   backWall: {fileID: 1555975158}
   diceRolled: 0
   hasBeenRolled: 0
-  currentPos: 0
   plrRollingIndex: 1
   players: []
   playerSpawns:
@@ -8340,38 +8339,19 @@ MonoBehaviour:
   - {fileID: 1968551899}
   - {fileID: 549007402}
   playerPrefab: {fileID: 8662229425635658369, guid: 50fbe959c5f79d547a38aa7022ae5f7f, type: 3}
+  currentPlayer: {fileID: 0}
+  moveToPoint: {x: 0, y: 0, z: 0}
+  isMoving: 0
   playerTurn: 0
   rollingCam: {fileID: 1267145724}
   mainCam: {fileID: 999520188}
   rollingButton:
-  - m_UseReference: 1
+    m_UseReference: 0
     m_Action:
-      m_Name: Element 0
+      m_Name: Rolling Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 39d33ce0-d67c-4fe6-868d-caa64a9688ae
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5139588220349582658, guid: d47c0a9ca7e493748aa109853810458c, type: 3}
-  - m_UseReference: 1
-    m_Action:
-      m_Name: Element 1
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 6edd2b89-cb66-4dee-8a3c-b755fe5dde0d
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5139588220349582658, guid: d47c0a9ca7e493748aa109853810458c, type: 3}
-  - m_UseReference: 0
-    m_Action:
-      m_Name: Element 2
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 5e7bec7c-1c2c-4294-b5b7-a5b35736ecb1
+      m_Id: bbe0aaf3-205c-4720-b4ee-0c62802ac715
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -8480,6 +8460,9 @@ MonoBehaviour:
   - {fileID: 736692060}
   - {fileID: 1801394527}
   numRolled: {fileID: 1555975164}
+  mover: {fileID: 0}
+  speed: 2
+  index: 100
 --- !u!4 &967029297
 Transform:
   m_ObjectHideFlags: 0
@@ -10487,7 +10470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1267145723
 Transform:
   m_ObjectHideFlags: 0
