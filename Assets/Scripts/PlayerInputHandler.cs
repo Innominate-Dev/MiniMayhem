@@ -52,8 +52,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void DiceRolling(InputAction.CallbackContext context)
     {
-        Debug.Log(context.control + " <-- controller path /// --> Player Index" + playerConfig.PlayerIndex);
-
         diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -55,6 +56,10 @@ public class DiceController : MonoBehaviour
     [SerializeField] public Camera rollingCam;
     [SerializeField] public Camera mainCam;
 
+    [Header("User Interface")]
+
+    public TextMeshProUGUI rollingText;
+
     [Header("Input System")]
 
     [SerializeField] public InputActionProperty rollingButton;
@@ -67,6 +72,9 @@ public class DiceController : MonoBehaviour
 
     [SerializeField] NumberRolled numRolled;
     [SerializeField] Mover2 mover;
+
+    private int index;
+    private float speed;
 
     private void Awake()
     {
@@ -122,9 +130,14 @@ public class DiceController : MonoBehaviour
 
         if (isMoving)
         {
-            currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.gameObject.transform.position, moveToPoint, 1f *Time.deltaTime);
+            //currentPlayer.gameObject.transform.position = Vector3.Lerp(currentPlayer.gameObject.transform.position, moveToPoint, 1f *Time.deltaTime);
             mainCam.gameObject.SetActive(true);
+
+            mover.isMoving = true;
+
         }
+
+
     }
 
     public void RollingDice(int pi, bool isPressed)

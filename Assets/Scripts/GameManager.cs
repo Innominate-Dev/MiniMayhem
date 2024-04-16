@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public enum gameState
+    public enum GameState
     {
         Menu,
         CharacterSelection,
