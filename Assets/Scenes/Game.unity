@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 3
 --- !u!1 &65866413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,6 +2737,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 2
 --- !u!1 &331294491
 GameObject:
   m_ObjectHideFlags: 0
@@ -5723,6 +5725,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 7
 --- !u!1 &593710841
 GameObject:
   m_ObjectHideFlags: 0
@@ -6157,6 +6160,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 6
 --- !u!1 &627678693
 GameObject:
   m_ObjectHideFlags: 0
@@ -10666,6 +10670,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 5
 --- !u!1 &1231883964
 GameObject:
   m_ObjectHideFlags: 0
@@ -16148,6 +16153,7 @@ MonoBehaviour:
   m_Timer: 10
   isPlayerInTrigger: 0
   m_MinigameName: HitTheTarget
+  m_MinigameID: 4
 --- !u!1 &1946879577
 GameObject:
   m_ObjectHideFlags: 0

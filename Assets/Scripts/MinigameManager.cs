@@ -8,10 +8,17 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] private float m_Timer;
     [SerializeField] private bool isPlayerInTrigger;
     [SerializeField] private string m_MinigameName;
+    
+    public int m_MinigameID;
+
+    [Header("Script References")]
+
+    Mover2 playerMover;
 
     private void Start()
     {
         m_Timer = 5f;
+        playerMover = GetComponent<Mover2>();
     }
 
     private void Update()
@@ -38,7 +45,7 @@ public class MinigameManager : MonoBehaviour
     {
         if(other.CompareTag("Player") && isPlayerInTrigger == true)
         {
-            if (m_Timer > 0)
+            if (m_Timer > 0 && m_MinigameID == playerMover.playerPOS)
             {
                 gameObject.name = m_MinigameName;
                 SceneManager.LoadScene(m_MinigameName);
