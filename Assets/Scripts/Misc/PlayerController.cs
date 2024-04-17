@@ -83,7 +83,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""L2"",
+                    ""name"": ""LeftTrigger"",
                     ""type"": ""Button"",
                     ""id"": ""de83b970-e0b0-4a23-9120-bf9506ada664"",
                     ""expectedControlType"": ""Button"",
@@ -144,7 +144,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""L2"",
+                    ""action"": ""LeftTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -161,7 +161,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Select = m_PlayerMovement.FindAction("Select", throwIfNotFound: true);
         m_PlayerMovement_RollDice = m_PlayerMovement.FindAction("RollDice", throwIfNotFound: true);
-        m_PlayerMovement_L2 = m_PlayerMovement.FindAction("L2", throwIfNotFound: true);
+        m_PlayerMovement_LeftTrigger = m_PlayerMovement.FindAction("LeftTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -272,7 +272,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Select;
     private readonly InputAction m_PlayerMovement_RollDice;
-    private readonly InputAction m_PlayerMovement_L2;
+    private readonly InputAction m_PlayerMovement_LeftTrigger;
     public struct PlayerMovementActions
     {
         private @PlayerController m_Wrapper;
@@ -280,7 +280,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Select => m_Wrapper.m_PlayerMovement_Select;
         public InputAction @RollDice => m_Wrapper.m_PlayerMovement_RollDice;
-        public InputAction @L2 => m_Wrapper.m_PlayerMovement_L2;
+        public InputAction @LeftTrigger => m_Wrapper.m_PlayerMovement_LeftTrigger;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -299,9 +299,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RollDice.started += instance.OnRollDice;
             @RollDice.performed += instance.OnRollDice;
             @RollDice.canceled += instance.OnRollDice;
-            @L2.started += instance.OnL2;
-            @L2.performed += instance.OnL2;
-            @L2.canceled += instance.OnL2;
+            @LeftTrigger.started += instance.OnLeftTrigger;
+            @LeftTrigger.performed += instance.OnLeftTrigger;
+            @LeftTrigger.canceled += instance.OnLeftTrigger;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -315,9 +315,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RollDice.started -= instance.OnRollDice;
             @RollDice.performed -= instance.OnRollDice;
             @RollDice.canceled -= instance.OnRollDice;
-            @L2.started -= instance.OnL2;
-            @L2.performed -= instance.OnL2;
-            @L2.canceled -= instance.OnL2;
+            @LeftTrigger.started -= instance.OnLeftTrigger;
+            @LeftTrigger.performed -= instance.OnLeftTrigger;
+            @LeftTrigger.canceled -= instance.OnLeftTrigger;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -344,6 +344,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnRollDice(InputAction.CallbackContext context);
-        void OnL2(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
     }
 }

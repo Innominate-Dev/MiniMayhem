@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "L2",
+                    "name": "LeftTrigger",
                     "type": "Button",
                     "id": "de83b970-e0b0-4a23-9120-bf9506ada664",
                     "expectedControlType": "Button",
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "L2",
+                    "action": "LeftTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
