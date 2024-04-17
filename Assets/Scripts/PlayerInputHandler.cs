@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -53,5 +55,17 @@ public class PlayerInputHandler : MonoBehaviour
     public void DiceRolling(InputAction.CallbackContext context)
     {
         diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
+    }
+
+    public void LeftTriggerPressed(InputAction.CallbackContext context)
+    {
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if(sceneName == "HitTheTarget")
+        {
+
+        }
     }
 }
