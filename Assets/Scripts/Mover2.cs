@@ -19,11 +19,6 @@ public class Mover2 : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private Vector2 InputVector = Vector2.zero;
 
-    /// <summary>
-    /// ///////////////////////////////////////
-    /// </summary>
-    /// 
-
     public Transform waypointparent;
     public List<GameObject> waypoints;
     public float speed = 2;

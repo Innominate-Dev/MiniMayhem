@@ -16,7 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField]
     private MeshRenderer playerMesh;
 
-    private PlayerController controls;
+    private PlayerController controls; 
 
     private void Awake()
     {
@@ -65,7 +65,11 @@ public class PlayerInputHandler : MonoBehaviour
 
         if(sceneName == "HitTheTarget")
         {
+            HitTheTarget minigameScript = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
 
+            minigameScript.AimDown(playerConfig.PlayerIndex, context.ReadValueAsButton());
+
+            Debug.Log("This is running hit the target");
         }
     }
 }
