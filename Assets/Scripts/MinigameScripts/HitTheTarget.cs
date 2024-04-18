@@ -21,7 +21,7 @@ public class HitTheTarget : MonoBehaviour
     public GameObject arrowPrefab;
     public Rigidbody arrowRB;
 
-    private float arrowSpeed = 100.0f;
+    private float arrowSpeed = 25.0f;
 
 
     private bool canUseBow;
@@ -38,7 +38,10 @@ public class HitTheTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(canUseBow == false)
+        {
+
+        }
     }
 
     public void AimDown(int pi, bool isPressed)
@@ -70,10 +73,16 @@ public class HitTheTarget : MonoBehaviour
         {
             if(canUseBow)
             {
-                GameObject clonedarrow = Instantiate(arrowPrefab, firepoint);
+                GameObject clonedarrow = Instantiate(arrowPrefab, firepoint.transform, true);
+                canUseBow = false;
+                arrowRB = clonedarrow.GetComponent<Rigidbody>();
                 arrowRB.isKinematic = false;
-                arrowRB.AddForce(clonedarrow.transform.forward ,ForceMode.Impulse);
+                arrowRB.AddForce(clonedarrow.transform.forward * arrowSpeed, ForceMode.Impulse);
             }
+        }
+        if(context.canceled)
+        {
+            
         }
     }
 
