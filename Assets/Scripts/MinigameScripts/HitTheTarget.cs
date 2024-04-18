@@ -26,6 +26,7 @@ public class HitTheTarget : MonoBehaviour
 
     private bool canUseBow;
     private bool drawingBow;
+    private float m_timer;
 
     #endregion
 
@@ -40,7 +41,12 @@ public class HitTheTarget : MonoBehaviour
     {
         if(canUseBow == false)
         {
-
+            m_timer -= Time.deltaTime;
+            if (m_timer < 0)
+            {
+                canUseBow = true;
+                m_timer = 5;
+            }
         }
     }
 
