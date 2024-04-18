@@ -81,6 +81,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftTrigger"",
+                    ""type"": ""Value"",
+                    ""id"": ""de83b970-e0b0-4a23-9120-bf9506ada664"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RightTrigger"",
+                    ""type"": ""Value"",
+                    ""id"": ""81d48e3c-8a99-4150-b386-7d14b60dde89"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -127,6 +145,28 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""RollDice"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""edc1b02d-a336-4b46-b48f-80e9465ffffb"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9a85cb9-ec0f-4aa2-ae25-98c705d09777"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +181,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Select = m_PlayerMovement.FindAction("Select", throwIfNotFound: true);
         m_PlayerMovement_RollDice = m_PlayerMovement.FindAction("RollDice", throwIfNotFound: true);
+        m_PlayerMovement_LeftTrigger = m_PlayerMovement.FindAction("LeftTrigger", throwIfNotFound: true);
+        m_PlayerMovement_RightTrigger = m_PlayerMovement.FindAction("RightTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +293,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Select;
     private readonly InputAction m_PlayerMovement_RollDice;
+    private readonly InputAction m_PlayerMovement_LeftTrigger;
+    private readonly InputAction m_PlayerMovement_RightTrigger;
     public struct PlayerMovementActions
     {
         private @PlayerController m_Wrapper;
@@ -258,6 +302,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Select => m_Wrapper.m_PlayerMovement_Select;
         public InputAction @RollDice => m_Wrapper.m_PlayerMovement_RollDice;
+        public InputAction @LeftTrigger => m_Wrapper.m_PlayerMovement_LeftTrigger;
+        public InputAction @RightTrigger => m_Wrapper.m_PlayerMovement_RightTrigger;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -276,6 +322,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RollDice.started += instance.OnRollDice;
             @RollDice.performed += instance.OnRollDice;
             @RollDice.canceled += instance.OnRollDice;
+            @LeftTrigger.started += instance.OnLeftTrigger;
+            @LeftTrigger.performed += instance.OnLeftTrigger;
+            @LeftTrigger.canceled += instance.OnLeftTrigger;
+            @RightTrigger.started += instance.OnRightTrigger;
+            @RightTrigger.performed += instance.OnRightTrigger;
+            @RightTrigger.canceled += instance.OnRightTrigger;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -289,6 +341,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RollDice.started -= instance.OnRollDice;
             @RollDice.performed -= instance.OnRollDice;
             @RollDice.canceled -= instance.OnRollDice;
+            @LeftTrigger.started -= instance.OnLeftTrigger;
+            @LeftTrigger.performed -= instance.OnLeftTrigger;
+            @LeftTrigger.canceled -= instance.OnLeftTrigger;
+            @RightTrigger.started -= instance.OnRightTrigger;
+            @RightTrigger.performed -= instance.OnRightTrigger;
+            @RightTrigger.canceled -= instance.OnRightTrigger;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -315,5 +373,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnRollDice(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
+        void OnRightTrigger(InputAction.CallbackContext context);
     }
 }

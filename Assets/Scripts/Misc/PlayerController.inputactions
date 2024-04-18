@@ -59,6 +59,24 @@
                     "processors": "",
                     "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftTrigger",
+                    "type": "Value",
+                    "id": "de83b970-e0b0-4a23-9120-bf9506ada664",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightTrigger",
+                    "type": "Value",
+                    "id": "81d48e3c-8a99-4150-b386-7d14b60dde89",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -103,6 +121,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RollDice",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "edc1b02d-a336-4b46-b48f-80e9465ffffb",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9a85cb9-ec0f-4aa2-ae25-98c705d09777",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField]
     private MeshRenderer playerMesh;
 
-    private PlayerController controls;
+    private PlayerController controls; 
 
     private void Awake()
     {
@@ -52,8 +54,22 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void DiceRolling(InputAction.CallbackContext context)
     {
-        Debug.Log(context.control + " <-- controller path /// --> Player Index" + playerConfig.PlayerIndex);
-
         diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
+    }
+
+    public void LeftTriggerPressed(InputAction.CallbackContext context)
+    {
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if(sceneName == "HitTheTarget")
+        {
+            HitTheTarget minigameScript = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
+
+            minigameScript.AimDown(playerConfig.PlayerIndex, context.ReadValueAsButton());
+
+            Debug.Log("This is running hit the target");
+        }
     }
 }
