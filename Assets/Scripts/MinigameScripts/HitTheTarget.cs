@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class HitTheTarget : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class HitTheTarget : MonoBehaviour
     public Transform firepoint;
     public GameObject arrowPrefab;
     public Rigidbody arrowRB;
+    public TextMeshProUGUI timerText;
 
     private float arrowSpeed = 25.0f;
 
@@ -27,19 +30,29 @@ public class HitTheTarget : MonoBehaviour
     private bool canUseBow;
     private bool drawingBow;
     private float m_timer;
+    private float roundTimer;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        roundTimer = 60.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(canUseBow == false)
+        roundTimer -= Time.deltaTime;
+        roundTimer = Mathf.Round(roundTimer * 100f) / 100f;
+        timerText.text = roundTimer.ToString() + "s";
+
+        if (roundTimer <= 0f)
+        {
+            SceneManager.LoadScene("Game");
+        }
+
+        if (canUseBow == false)
         {
             m_timer -= Time.deltaTime;
             if (m_timer < 0)
@@ -79,7 +92,7 @@ public class HitTheTarget : MonoBehaviour
         {
             if(canUseBow)
             {
-                GameObject clonedarrow = Instantiate(arrowPrefab, firepoint.transform, true);
+                GameObject clonedarrow = Instantiate(arrowPrefab, firepoint.position, firepoint.rotation, gameObject.transform);
                 canUseBow = false;
                 arrowRB = clonedarrow.GetComponent<Rigidbody>();
                 arrowRB.isKinematic = false;
