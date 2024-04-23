@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+
     public Transform player;
     public Transform orientation;
     private void Update()

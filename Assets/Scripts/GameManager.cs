@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Round Settings")]
 
     private float roundtimer;
-    private TextMeshProUGUI timerText;
+    public TextMeshProUGUI timerText;
 
     public GameState gameState;
 
