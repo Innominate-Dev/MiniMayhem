@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,13 +15,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Settings")]
     
-    [SerializeField]
-    private float rollingDiceTimer;
-
     public List<GameObject> spectator;
     public List<GameObject> minigameplayer;
 
+    [Header("Round Settings")]
 
+    private float roundtimer;
+    private TextMeshProUGUI timerText;
+
+    public GameState gameState;
 
     public enum GameState
     {
@@ -32,11 +36,28 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        roundtimer = 60.0f;
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         for (int i = 0; i < playerConfigs.Length; i++)
         {
             var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[i]);
+        }
+    }
+
+    private void Update()
+    {
+        if(gameState == GameState.PlayingMinigame)
+        {
+            roundtimer -= Time.deltaTime;
+            roundtimer = Mathf.Round(roundtimer * 100f) / 100f;
+            timerText.text = roundtimer.ToString() + "s";
+
+            if (roundtimer <= 0f)
+            {
+                gameState = GameState.PlayingBoard;
+                SceneManager.LoadScene("Game");
+            }
         }
     }
 

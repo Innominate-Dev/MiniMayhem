@@ -43,14 +43,7 @@ public class HitTheTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        roundTimer -= Time.deltaTime;
-        roundTimer = Mathf.Round(roundTimer * 100f) / 100f;
-        timerText.text = roundTimer.ToString() + "s";
 
-        if (roundTimer <= 0f)
-        {
-            SceneManager.LoadScene("Game");
-        }
 
         if (canUseBow == false)
         {
@@ -87,7 +80,6 @@ public class HitTheTarget : MonoBehaviour
 
     public void PowerShot(InputAction.CallbackContext context)
     {
-        canUseBow = true;
         if(context.performed)
         {
             if(canUseBow)
