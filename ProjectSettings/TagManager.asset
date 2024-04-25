@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Minigame
   - Target
+  - Bow
   layers:
   - Default
   - TransparentFX
