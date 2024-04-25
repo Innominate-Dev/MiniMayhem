@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 715292993246561794}
-  - component: {fileID: 2882641826098992000}
   - component: {fileID: 7689904658950968039}
   - component: {fileID: 6032134429977735368}
   - component: {fileID: 5118808214431119277}
@@ -38,29 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2882641826098992000
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5859459840910835755}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.006031896
-  m_Height: 0.032469846
-  m_Direction: 1
-  m_Center: {x: -3.8362618e-15, y: -9.590654e-16, z: 0.08110512}
 --- !u!54 &7689904658950968039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69,7 +45,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5859459840910835755}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -100,8 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aed8a48db7b4de458dc092308cb9056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dingsfx: {fileID: 0}
   DespawnTime: 10
-  speed: 8
+  speed: 100
+  targetsHitText: {fileID: 0}
 --- !u!65 &5118808214431119277
 BoxCollider:
   m_ObjectHideFlags: 0

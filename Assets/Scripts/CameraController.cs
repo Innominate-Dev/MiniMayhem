@@ -24,13 +24,8 @@ public class CameraController : MonoBehaviour
     public PlayerInput bowAction;
 
     private void Awake()
-    {
-        //cameraTransform = Camera.main.transform;
+    {        
         bowTransform = GameObject.FindWithTag("Bow").transform;
-    }
-
-    private void OnDestroy()
-    {
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -50,16 +45,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        GameObject aimCamera = GameObject.Find("AimCam1").GetComponent<GameObject>();
-        GameObject playerCam = GameObject.Find("PlayerCam1").GetComponent<GameObject>();
-        if(aimCamera.activeInHierarchy)
-        {
-            cameraTransform = aimCamera.transform;
-        }
-        if(playerCam.activeInHierarchy)
-        {
-            cameraTransform = playerCam.transform;
-        }
+
 
         Vector3 moveDir = new Vector3(moveInput.x, 0, moveInput.y);
         cameraTransform.position += moveDir * cameraSpeed * Time.deltaTime;
