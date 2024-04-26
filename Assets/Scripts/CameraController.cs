@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
 
         Vector2 lookDir = lookInput * lookSpeed * Time.deltaTime;
         cameraTransform.Rotate(Vector3.up, lookDir.x);
-        bowTransform.Rotate(Vector3.right, lookDir.y);
+        bowTransform.Rotate(-Vector3.right, lookDir.y);
 
         bowTransform.position += bowTransform.forward * bowInput.y * bowSpeed * Time.deltaTime;
     }
