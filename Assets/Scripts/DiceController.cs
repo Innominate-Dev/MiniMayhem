@@ -87,6 +87,7 @@ public class DiceController : MonoBehaviour
         for (int p = 0; p < playerConfigs.Length; p++)
         {
             var player = Instantiate(playerPrefab, playerSpawns[p].position, playerSpawns[p].rotation, gameObject.transform);
+            player.name = "Player" + p;
             player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[p]);
             players.Add(player);
         }

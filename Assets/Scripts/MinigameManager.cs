@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] private float m_Timer;
     [SerializeField] private bool isPlayerInTrigger;
     [SerializeField] private string m_MinigameName;
+    [SerializeField] private GameManager gameManager;
     
     public int m_MinigameID;
 
@@ -18,7 +20,7 @@ public class MinigameManager : MonoBehaviour
     private void Start()
     {
         m_Timer = 5f;
-        playerMover = GetComponent<Mover2>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -45,8 +47,12 @@ public class MinigameManager : MonoBehaviour
     {
         if(other.CompareTag("Player") && isPlayerInTrigger == true)
         {
+            playerMover = other.gameObject.GetComponent<Mover2>();
             if (m_Timer > 0 && m_MinigameID == playerMover.playerPOS)
             {
+                // if the player is in the trigger and their POS matches the minigame ID it will run the following code.
+                GameObject minigame_Player = other.gameObject;
+                gameManager.Player_MinigameHandler(minigame_Player);
                 gameObject.name = m_MinigameName;
                 SceneManager.LoadScene(m_MinigameName);
             }
@@ -58,6 +64,7 @@ public class MinigameManager : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isPlayerInTrigger = false;
+            m_Timer = 5;
         }
     }
 }

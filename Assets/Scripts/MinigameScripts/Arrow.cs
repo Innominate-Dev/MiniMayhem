@@ -9,18 +9,19 @@ public class Arrow : MonoBehaviour
 
     public float DespawnTime = 10f;
     public float speed = 8f;
-    public TextMeshProUGUI targetsHitText;
 
     private int amountTargetHit;
     private float DespawnTimer;
     private bool hasCollided;
     private Rigidbody rb;
+
+    HitTheTarget hitTheTargetManager;
     // Start is called before the first frame update
     void Start()
     {
         DespawnTimer = DespawnTime;
         rb = GetComponent<Rigidbody>();
-        targetsHitText = GameObject.Find("TargetsHitText").GetComponent<TextMeshProUGUI>();
+        hitTheTargetManager = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
     }
 
     // Update is called once per frame
@@ -44,30 +45,51 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("Target"))
         {
             hasCollided = true;
 
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
+            bool hasHit = true;
+            hitTheTargetManager.TargetHitChecker(hasHit);
+            
+            Destroy(other.gameObject);
 
-            if(amountTargetHit < 6)
+            if (amountTargetHit == 6)
             {
                 //dingsfx.Play();
-                Debug.LogWarning("You hit the target");
-                amountTargetHit++;
-                targetsHitText.text = amountTargetHit.ToString() + "/6";
-                Destroy(other.gameObject);
+                Debug.LogWarning(amountTargetHit);
             }
 
         }
         else
         {
             Debug.Log("hit nothing brev");
+
+
+            float cooldown = 1.5f;
+
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0f)
+            {
+                hasCollided = true;
+
+                rb.isKinematic = true;
+                rb.velocity = Vector3.zero;
+            }
+
+
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="other"></param>
+    /// 
+    /*private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Target"))
         {
@@ -85,5 +107,5 @@ public class Arrow : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
-    }
+    }*/
 }

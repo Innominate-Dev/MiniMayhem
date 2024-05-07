@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -40,8 +39,21 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if(obj.action.name == controls.PlayerMovement.RollDice.name)
         {
-            DiceRolling(obj);
+            InteractionButton(obj);
         }
+        if(obj.action.name == controls.PlayerMovement.LeftTrigger.name)
+        {
+            LeftTriggerPressed(obj);
+        }
+        if(obj.action.name == controls.PlayerMovement.RightTrigger.name)
+        {
+            RightTriggerPressed(obj);
+        }
+        if(obj.action.name == controls.PlayerMovement.Look.name)
+        {
+            OnLook(obj);
+        }
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -52,9 +64,30 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    public void DiceRolling(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext context)
     {
-        diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
+        CameraController camController = GameObject.FindObjectOfType<CameraController>();
+        camController.OnLook(context);
+    }
+
+    public void InteractionButton(InputAction.CallbackContext context)
+    {
+        // On Button A pressed or X //
+
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if(sceneName == "Game")
+        {
+            diceController.RollingDice(playerConfig.PlayerIndex, context.ReadValueAsButton());
+        }
+        if (sceneName == "HitTheTarget")
+        {
+            HitTheTarget minigameScript = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
+
+            minigameScript.DroppingTargets(playerConfig.PlayerIndex, context.ReadValueAsButton());
+        }
     }
 
     public void LeftTriggerPressed(InputAction.CallbackContext context)
@@ -69,7 +102,21 @@ public class PlayerInputHandler : MonoBehaviour
 
             minigameScript.AimDown(playerConfig.PlayerIndex, context.ReadValueAsButton());
 
-            Debug.Log("This is running hit the target");
+        }
+    }    
+    
+    public void RightTriggerPressed(InputAction.CallbackContext context)
+    {
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if (sceneName == "HitTheTarget")
+        {
+            HitTheTarget minigameScript = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
+
+            minigameScript.PowerShot(playerConfig.PlayerIndex, context.ReadValueAsButton());
+
         }
     }
 }

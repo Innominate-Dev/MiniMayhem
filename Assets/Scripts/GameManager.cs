@@ -8,20 +8,24 @@ public class GameManager : MonoBehaviour
 {
     [Header("Player Settings")]
 
-    [SerializeField]
-    private Transform[] playerSpawns;
-    [SerializeField]
-    private GameObject playerPrefab;
+    public List<GameObject> playerList;
 
     [Header("Game Settings")]
     
     public List<GameObject> spectator;
     public List<GameObject> minigameplayer;
 
+    public List<int> spectator_ID;
+
+    public int m_playerID;
+    //this is ID is for the person playing the minigame
+
     [Header("Round Settings")]
 
     private float roundtimer;
     public TextMeshProUGUI timerText;
+
+    DiceController diceController;
 
     public GameState gameState;
 
@@ -34,31 +38,78 @@ public class GameManager : MonoBehaviour
         EndScene
     }
 
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null)
+        {
+            Debug.Log("Making Singleton");
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+    }
+
     private void Start()
     {
         roundtimer = 60.0f;
-        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
-        for (int i = 0; i < playerConfigs.Length; i++)
-        {
-            var player = Instantiate(playerPrefab, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
-            player.GetComponent<PlayerInputHandler>().InitializePlayer(playerConfigs[i]);
-        }
+        diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+        diceController.players = playerList;
     }
 
     private void Update()
     {
-        if(gameState == GameState.PlayingMinigame)
-        {
-            roundtimer -= Time.deltaTime;
-            roundtimer = Mathf.Round(roundtimer * 100f) / 100f;
-            timerText.text = roundtimer.ToString() + "s";
 
-            if (roundtimer <= 0f)
+    }
+
+    public void Player_MinigameHandler(GameObject playerObj)
+    {
+        if (playerObj.name == "Player0") { m_playerID = 0; };
+        if (playerObj.name == "Player1") { m_playerID = 1; };
+        if (playerObj.name == "Player2") { m_playerID = 2; };
+        if (playerObj.name == "Player3") { m_playerID = 3; };
+
+
+
+        // Gets the person for who is playing the Minigame and adds them to the list.
+
+        minigameplayer = new List<GameObject>();
+        minigameplayer.Add(playerObj);
+
+        // generates a new list for all the players that are spectators.
+
+        spectator = new List<GameObject>();
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if(playerList[i].gameObject.name != playerObj.name)
             {
-                gameState = GameState.PlayingBoard;
-                SceneManager.LoadScene("Game");
+                spectator.Add(playerList[i].gameObject);
+                Debug.Log("Spectators being added");
             }
         }
+    }
+
+    public void PlayerStatusHandler(bool playerDidWin)
+    {
+        if(playerDidWin)
+        {
+            // Don't load punishment UI
+        }
+        if(playerDidWin == false)
+        {
+            // Load Punishment wheel
+        }
+    }
+
+    void GameStatusHandler()
+    {
+        //This Manages what ENUM status the game is currently in.
     }
 
 }

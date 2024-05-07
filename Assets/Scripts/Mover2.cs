@@ -28,7 +28,6 @@ public class Mover2 : MonoBehaviour
     bool changingDirection = false;
 
     float DistanceRay;
-    public Transform guard;
 
     //Animation
     //Animator myAnim;
@@ -72,7 +71,6 @@ public class Mover2 : MonoBehaviour
         if(isMoving)
         {
             float distance = Vector3.Distance(transform.position, destination);
-            Debug.Log(distance);
 
             RaycastHit hit;
 
@@ -87,9 +85,13 @@ public class Mover2 : MonoBehaviour
                 if (distance <= 0.15f)
                 {
                     Debug.Log("CloseBy");
-                    if (index < waypoints.Count - 1 && index != playerPOS)
+                    if (index < waypoints.Count - 1 && index < playerPOS)
                     {
                         ChangeWaypoint();
+                    }
+                    else if(index > playerPOS)
+                    {
+                        GoBack();
                     }
                     else
                     {
@@ -128,5 +130,12 @@ public class Mover2 : MonoBehaviour
         destination = waypoints[index].transform.position;
         changingDirection = true;
         //myAnim.SetBool("isMoving", false);
+    }
+
+    void GoBack()
+    {
+        index--;
+        destination = waypoints[index].transform.position;
+        changingDirection = true;
     }
 }
