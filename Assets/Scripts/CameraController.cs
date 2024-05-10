@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
     private Vector2 lookInput;
     private Vector2 bowInput;
 
+    [Header("Variables & Camera Speeds")]
+
     [SerializeField]
     private float cameraSpeed = 10f;
     [SerializeField]
@@ -19,11 +21,17 @@ public class CameraController : MonoBehaviour
     public Transform cameraTransform;
     public Transform bowTransform;
 
+    [Header("Player Inputs")]
+
     public PlayerInput[] pi_list;
 
     public PlayerInput moveAction;
     public PlayerInput lookAction;
     public PlayerInput bowAction;
+
+    [Header("Player Properties")]
+
+    [SerializeField] private int playerID;
 
     GameManager gameManager;
 
@@ -42,9 +50,12 @@ public class CameraController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext context, int pi)
     {
-        lookInput = context.ReadValue<Vector2>();
+        if(pi == gameManager.m_playerID)
+        {
+            lookInput = context.ReadValue<Vector2>();
+        }
     }
 
     public void OnBow(InputAction.CallbackContext context)

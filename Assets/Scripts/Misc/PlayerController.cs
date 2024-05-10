@@ -113,10 +113,19 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": ""RightTrigger"",
                     ""type"": ""Value"",
                     ""id"": ""81d48e3c-8a99-4150-b386-7d14b60dde89"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DecreaseNum"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0c9342e-5599-4122-b55e-6021d9518479"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -124,6 +133,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""57b86c9a-86be-48b6-9d32-a287ee2b20c8"",
                     ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7c35b3c-7c4b-4eab-983f-9eaf9a03fdb1"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -155,8 +175,30 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9275c928-7ba7-4be5-bd9f-835d6e0bc2d0"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5c7c7764-af3c-4e3a-a59f-414bd5f3bcf1"",
                     ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollDice"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a77dde8e-f453-4cbf-9993-21cb23fe9087"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -177,8 +219,30 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""73af8d6b-22ec-41f7-b18c-2e0db177fc0c"",
+                    ""path"": ""<DualShockGamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b9a85cb9-ec0f-4aa2-ae25-98c705d09777"",
                     ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0aa826f6-f912-4c04-b9b9-5a972f59e1c8"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
@@ -232,8 +296,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5d3a53de-5f24-41be-8cef-48f0ed0e2344"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
+                    ""id"": ""f72dbe7a-630d-4947-a419-2e460df7fe4a"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -273,6 +337,50 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57d7f97b-50c9-4e33-95e9-33e454301b93"",
+                    ""path"": ""<DualShockGamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0dea333-05bb-40a6-97d1-0dd5b4480c2f"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b961cc8f-3cf5-4958-817e-9c90f84ba533"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de901f8b-2c9a-46ff-8aae-f13fa74d18c2"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,6 +399,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMovement_RollDice = m_PlayerMovement.FindAction("RollDice", throwIfNotFound: true);
         m_PlayerMovement_LeftTrigger = m_PlayerMovement.FindAction("LeftTrigger", throwIfNotFound: true);
         m_PlayerMovement_RightTrigger = m_PlayerMovement.FindAction("RightTrigger", throwIfNotFound: true);
+        m_PlayerMovement_DecreaseNum = m_PlayerMovement.FindAction("DecreaseNum", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,6 +514,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_RollDice;
     private readonly InputAction m_PlayerMovement_LeftTrigger;
     private readonly InputAction m_PlayerMovement_RightTrigger;
+    private readonly InputAction m_PlayerMovement_DecreaseNum;
     public struct PlayerMovementActions
     {
         private @PlayerController m_Wrapper;
@@ -416,6 +526,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @RollDice => m_Wrapper.m_PlayerMovement_RollDice;
         public InputAction @LeftTrigger => m_Wrapper.m_PlayerMovement_LeftTrigger;
         public InputAction @RightTrigger => m_Wrapper.m_PlayerMovement_RightTrigger;
+        public InputAction @DecreaseNum => m_Wrapper.m_PlayerMovement_DecreaseNum;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,6 +557,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RightTrigger.started += instance.OnRightTrigger;
             @RightTrigger.performed += instance.OnRightTrigger;
             @RightTrigger.canceled += instance.OnRightTrigger;
+            @DecreaseNum.started += instance.OnDecreaseNum;
+            @DecreaseNum.performed += instance.OnDecreaseNum;
+            @DecreaseNum.canceled += instance.OnDecreaseNum;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -471,6 +585,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @RightTrigger.started -= instance.OnRightTrigger;
             @RightTrigger.performed -= instance.OnRightTrigger;
             @RightTrigger.canceled -= instance.OnRightTrigger;
+            @DecreaseNum.started -= instance.OnDecreaseNum;
+            @DecreaseNum.performed -= instance.OnDecreaseNum;
+            @DecreaseNum.canceled -= instance.OnDecreaseNum;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -501,5 +618,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnRollDice(InputAction.CallbackContext context);
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnRightTrigger(InputAction.CallbackContext context);
+        void OnDecreaseNum(InputAction.CallbackContext context);
     }
 }

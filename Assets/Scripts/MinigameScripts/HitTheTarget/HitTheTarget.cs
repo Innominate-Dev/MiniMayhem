@@ -48,12 +48,14 @@ public class HitTheTarget : MonoBehaviour
     private float targetCooldown;
 
     GameManager GameManager;
+    SceneLoader sceneLoader;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        sceneLoader = GameObject.Find("GameManager").GetComponent<SceneLoader>();
         roundTimer = 60.0f;
         targetsHitText = GameObject.Find("TargetsHitText").GetComponent<TextMeshProUGUI>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();

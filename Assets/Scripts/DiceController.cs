@@ -21,6 +21,8 @@ public class DiceController : MonoBehaviour
     [SerializeField] public GameObject backWall;
     [SerializeField] public int diceRolled;
     [SerializeField] private bool hasBeenRolled;
+    [SerializeField] private bool skipPlayerTurn;
+    [SerializeField] private int skipthisplayer;
 
     [Header("Positions")]
 
@@ -222,8 +224,15 @@ public class DiceController : MonoBehaviour
 
         isMoving = true;
 
-        Invoke("NextPlayerRolling", 1);
+        Invoke("NextPlayerRolling", 6);
 
         yield return null;
+    }
+
+    public void SkipPlayerTurn()
+    {
+        skipPlayerTurn = false;
+        skipthisplayer = plrRollingIndex;
+        skipthisplayer--;
     }
 }

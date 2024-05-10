@@ -53,6 +53,10 @@ public class PlayerInputHandler : MonoBehaviour
         {
             OnLook(obj);
         }
+        if(obj.action.name == controls.PlayerMovement.DecreaseNum.name)
+        {
+            DecreaseNum(obj);
+        }
 
     }
 
@@ -66,8 +70,28 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        
         CameraController camController = GameObject.FindObjectOfType<CameraController>();
-        camController.OnLook(context);
+        if(camController != null)
+        {
+            camController.OnLook(context, playerConfig.PlayerIndex);
+        }
+    }
+
+    public void DecreaseNum(InputAction.CallbackContext context)
+    {
+        // On Button B pressed or Square //
+
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if(sceneName == "CountTheEggs")
+        {
+            CountTheEggs minigamesScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
+
+            minigamesScript.DecreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
+        }
     }
 
     public void InteractionButton(InputAction.CallbackContext context)
@@ -87,6 +111,13 @@ public class PlayerInputHandler : MonoBehaviour
             HitTheTarget minigameScript = GameObject.Find("MinigameManager").GetComponent<HitTheTarget>();
 
             minigameScript.DroppingTargets(playerConfig.PlayerIndex, context.ReadValueAsButton());
+        }
+        if(sceneName == "CountTheEggs")
+        {
+            CountTheEggs minigamesScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
+
+            minigamesScript.IncreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
+            minigamesScript.SabotagePlayer(playerConfig.PlayerIndex, context.ReadValueAsButton());
         }
     }
 

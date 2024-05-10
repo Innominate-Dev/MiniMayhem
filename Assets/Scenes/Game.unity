@@ -537,7 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 2
 --- !u!1 &65866413
@@ -1843,7 +1843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &181762997
 Transform:
   m_ObjectHideFlags: 0
@@ -2774,7 +2774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 1
 --- !u!1 &331294491
@@ -4422,6 +4422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 squares
   - Skip a turn
@@ -4431,7 +4434,6 @@ MonoBehaviour:
   - Go back 4 square
   - Swap with the closest person
   - Get sent to the nearest minigame
-  - 
   card_picked: 
 --- !u!1 &474484365
 GameObject:
@@ -4530,6 +4532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 squares
   - Skip a turn
@@ -4539,7 +4544,6 @@ MonoBehaviour:
   - Go back 4 square
   - Swap with the closest person
   - Get sent to the nearest minigame
-  - 
   card_picked: 
 --- !u!1 &485609992
 GameObject:
@@ -4638,6 +4642,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 spaces
   - Skip a turn
@@ -5993,7 +6000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 6
 --- !u!1 &593710841
@@ -6429,7 +6436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 5
 --- !u!1 &627678693
@@ -8145,7 +8152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795754199}
   - component: {fileID: 795754200}
-  - component: {fileID: 795754201}
+  - component: {fileID: 795754202}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8187,7 +8194,7 @@ MonoBehaviour:
   m_playerID: 0
   timerText: {fileID: 0}
   gameState: 2
---- !u!114 &795754201
+--- !u!114 &795754202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8196,12 +8203,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 795754198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f76a26a1364b514aacac9cc10754c0e, type: 3}
+  m_Script: {fileID: 11500000, guid: b4af911c4e8849f439a2a6733afcf4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playername: 
-  playerId: 0
-  playerPOS: 0
+  playerDataList:
+    playerData: []
 --- !u!1 &811512398
 GameObject:
   m_ObjectHideFlags: 0
@@ -9187,6 +9193,8 @@ MonoBehaviour:
   backWall: {fileID: 1555975158}
   diceRolled: 0
   hasBeenRolled: 0
+  skipPlayerTurn: 0
+  skipthisplayer: 0
   plrRollingIndex: 1
   players: []
   playerSpawns:
@@ -10976,7 +10984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 4
 --- !u!1 &1231883964
@@ -12945,6 +12953,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 squares
   - Skip a turn
@@ -12954,7 +12965,6 @@ MonoBehaviour:
   - Go back 4 square
   - Swap with the closest person
   - Get sent to the nearest minigame
-  - 
   card_picked: 
 --- !u!1 &1468567470
 GameObject:
@@ -14500,6 +14510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 squares
   - Skip a turn
@@ -14509,7 +14522,6 @@ MonoBehaviour:
   - Go back 4 square
   - Swap with the closest person
   - Get sent to the nearest minigame
-  - 
   card_picked: 
 --- !u!1 &1705125675
 GameObject:
@@ -15917,7 +15929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1889054398
 Transform:
   m_ObjectHideFlags: 0
@@ -16614,7 +16626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: HitTheTarget
+  m_MinigameName: CountTheEggs
   gameManager: {fileID: 0}
   m_MinigameID: 3
 --- !u!1 &1946879577
@@ -17196,6 +17208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5724e87e29d634a80c5fa9af90e968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Timer: 0
+  isPlayerInTrigger: 0
+  chanceCardTaken: 0
   chanceCards:
   - Go back 3 squares
   - Skip a turn
@@ -17205,7 +17220,6 @@ MonoBehaviour:
   - Go back 4 square
   - Swap with the closest person
   - Get sent to the nearest minigame
-  - 
   card_picked: 
 --- !u!1 &2013414680
 GameObject:

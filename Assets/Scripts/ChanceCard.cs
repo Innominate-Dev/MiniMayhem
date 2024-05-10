@@ -8,18 +8,21 @@ using UnityEngine.SceneManagement;
 public class ChanceCard : MonoBehaviour
 {
     private GameObject player;
-    private float m_Timer;
-    private bool isPlayerInTrigger;
+    public float m_Timer;
+    public bool isPlayerInTrigger;
+    public bool chanceCardTaken;
 
     [SerializeField]
     private List<string> chanceCards;
     [SerializeField]
     private string card_picked;
 
+    DiceController diceController;
     Mover2 mover;
     private void Start()
     {
         m_Timer = 5f;
+        diceController = FindAnyObjectByType<DiceController>();
     }
 
     private void Update()
@@ -47,7 +50,7 @@ public class ChanceCard : MonoBehaviour
         if (other.CompareTag("Player") && isPlayerInTrigger == true)
         {
             mover = other.gameObject.GetComponent<Mover2>();
-            if (mover.isMoving == false)
+            if (mover.isMoving == false && chanceCardTaken == false)
             {
                 PickingUpCard();
                 WhatCardIsIt(other.gameObject);
@@ -59,6 +62,7 @@ public class ChanceCard : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            chanceCardTaken = false;
             isPlayerInTrigger = false;
             m_Timer = 5;
         }
@@ -75,35 +79,48 @@ public class ChanceCard : MonoBehaviour
     {
         if (card_picked.Contains("back 3"))
         {
-            mover.playerPOS = (3 - mover.playerPOS);
+            mover.playerPOS = (mover.playerPOS - 3);
 
             Debug.Log("Going back 3");
+            card_picked = null;
         }
         else if(card_picked.Contains("back 5"))
         {
-            mover.playerPOS = (5 - mover.playerPOS);
+            mover.playerPOS = (mover.playerPOS - 5);
 
             Debug.Log("Going back 5");
+            
+            card_picked = null;
         }        
         else if(card_picked.Contains("back 4"))
         {
-            mover.playerPOS = (4 - mover.playerPOS);
+            mover.playerPOS = (mover.playerPOS - 4);
 
             Debug.Log("Going back 4");
+            
+            card_picked = null;
         }
         else if(card_picked.Contains("forward 2"))
         {
             mover.playerPOS = (2 + mover.playerPOS);
 
             Debug.Log("Going forward 2");
+            
+            card_picked = null;
         }
         else if(card_picked.Contains("Skip a turn"))
         {
-            DiceController diceController;
+            diceController.SkipPlayerTurn();
+            
+            card_picked = null;
         }
         else
         {
             Debug.Log("Your safe g");
+            
+            card_picked = null;
         }
+
+        chanceCardTaken = true;
     }
 }

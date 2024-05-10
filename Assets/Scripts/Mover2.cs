@@ -68,7 +68,13 @@ public class Mover2 : MonoBehaviour
             pc.Move(moveDirection * Time.deltaTime);
         }
 
-        if(isMoving)
+        if (index < 0)
+        {
+            index = 0;
+            playerPOS = 0;
+        }
+
+        if (isMoving)
         {
             float distance = Vector3.Distance(transform.position, destination);
 
