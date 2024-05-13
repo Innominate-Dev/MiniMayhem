@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/2DMinigame.unity
     guid: be0015db450d7974e9d0ec06ee480024
   - enabled: 1
-    path: Assets/Scenes/LogHill.unity
+    path: Assets/Scenes/Log Rolling/LogHill.unity
     guid: d34d4dd9aeccb614f97103b4991f6660
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9a7db46e27ba35949864fe1d64de470c, type: 2}

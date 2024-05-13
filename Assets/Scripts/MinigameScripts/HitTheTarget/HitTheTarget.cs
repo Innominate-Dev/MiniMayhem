@@ -100,8 +100,6 @@ public class HitTheTarget : MonoBehaviour
 
         if (canSabotage == false)
         {
-
-
             targetCooldown -= Time.deltaTime;
             if (targetCooldown < 0)
             {
@@ -149,7 +147,7 @@ public class HitTheTarget : MonoBehaviour
             lt_been_pushed = false;
         }
 
-        if (isPressing_a > 0.5f && !rt_been_pushed)
+        if (isPressing_a > 0.5f && !a_been_pushed)
         {
             a_been_pushed = true;
             //RollingDice();

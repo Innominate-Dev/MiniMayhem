@@ -34,6 +34,8 @@ public class CountTheEggs : MonoBehaviour
     private int guessamount;
 
     private float roundTimer;
+    private bool cooldown;
+    private float inputDelay;
 
 
     [Header("Player Input")]
@@ -55,7 +57,7 @@ public class CountTheEggs : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         SetUpMap();
         roundTimer = 60f;
     }
@@ -64,6 +66,8 @@ public class CountTheEggs : MonoBehaviour
     {
         float isPressing_a = a_button.action.ReadValue<float>();
         float isPressing_b = b_button.action.ReadValue<float>();
+
+        // Pressing A
 
         if (isPressing_a > 0.5f && !a_been_pushed)
         {
@@ -75,6 +79,8 @@ public class CountTheEggs : MonoBehaviour
             a_been_pushed = false;
         }
 
+        //Pressing B
+
         if (isPressing_b > 0.5f && !b_been_pushed)
         {
             b_been_pushed = true;
@@ -83,6 +89,18 @@ public class CountTheEggs : MonoBehaviour
         if (isPressing_b < 0.5f)
         {
             b_been_pushed = false;
+        }
+
+        // cooldown 
+
+        if (cooldown == true)
+        {
+            inputDelay -= Time.deltaTime;
+            if (inputDelay < 0)
+            {
+                cooldown = false;
+                inputDelay = 0.5f;
+            }
         }
 
         MinigameState();
@@ -117,15 +135,15 @@ public class CountTheEggs : MonoBehaviour
                 bool playerStatus = false;
                 gameManager.PlayerStatusHandler(playerStatus);
             }
-
-
         }
     }
 
     public void IncreaseGuessNum(int pi, bool isPressed)
     {
-        if (pi == gameManager.m_playerID && isPressed == true)
+
+        if (pi == gameManager.m_playerID && isPressed == true && cooldown == false)
         {
+            cooldown = true;
             guessamount++;
             guessingNumText.text = guessamount.ToString();
         }
@@ -133,8 +151,10 @@ public class CountTheEggs : MonoBehaviour
 
     public void DecreaseGuessNum(int pi, bool isPressed)
     {
-        if (pi == gameManager.m_playerID && isPressed == true && guessamount <= 0)
+
+        if (pi == gameManager.m_playerID && isPressed == true && guessamount != 0 && cooldown == false)
         {
+            cooldown = true;
             guessamount--;
             guessingNumText.text = guessamount.ToString();
         }

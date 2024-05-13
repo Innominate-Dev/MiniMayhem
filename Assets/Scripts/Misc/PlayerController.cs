@@ -124,7 +124,16 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""id"": ""e0c9342e-5599-4122-b55e-6021d9518479"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""IncreaseNum"",
+                    ""type"": ""Button"",
+                    ""id"": ""8fab5d14-3ad7-43dc-802e-cac564c78c13"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -188,6 +197,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5c7c7764-af3c-4e3a-a59f-414bd5f3bcf1"",
                     ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollDice"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9383b22-b240-4faa-a6cf-9c06068217c2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -353,7 +373,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e0dea333-05bb-40a6-97d1-0dd5b4480c2f"",
                     ""path"": ""<XInputController>/buttonEast"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DecreaseNum"",
@@ -364,7 +384,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""b961cc8f-3cf5-4958-817e-9c90f84ba533"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DecreaseNum"",
@@ -375,10 +395,43 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""de901f8b-2c9a-46ff-8aae-f13fa74d18c2"",
                     ""path"": ""<DualShockGamepad>/buttonEast"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DecreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37ed86f6-0173-439c-8baa-e2ab2017d3b9"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""598338be-5154-49dc-9a65-ecac95249feb"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22279f6d-3604-4c53-9cd8-27af19bfc956"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseNum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -400,6 +453,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_PlayerMovement_LeftTrigger = m_PlayerMovement.FindAction("LeftTrigger", throwIfNotFound: true);
         m_PlayerMovement_RightTrigger = m_PlayerMovement.FindAction("RightTrigger", throwIfNotFound: true);
         m_PlayerMovement_DecreaseNum = m_PlayerMovement.FindAction("DecreaseNum", throwIfNotFound: true);
+        m_PlayerMovement_IncreaseNum = m_PlayerMovement.FindAction("IncreaseNum", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -515,6 +569,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_LeftTrigger;
     private readonly InputAction m_PlayerMovement_RightTrigger;
     private readonly InputAction m_PlayerMovement_DecreaseNum;
+    private readonly InputAction m_PlayerMovement_IncreaseNum;
     public struct PlayerMovementActions
     {
         private @PlayerController m_Wrapper;
@@ -527,6 +582,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @LeftTrigger => m_Wrapper.m_PlayerMovement_LeftTrigger;
         public InputAction @RightTrigger => m_Wrapper.m_PlayerMovement_RightTrigger;
         public InputAction @DecreaseNum => m_Wrapper.m_PlayerMovement_DecreaseNum;
+        public InputAction @IncreaseNum => m_Wrapper.m_PlayerMovement_IncreaseNum;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -560,6 +616,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @DecreaseNum.started += instance.OnDecreaseNum;
             @DecreaseNum.performed += instance.OnDecreaseNum;
             @DecreaseNum.canceled += instance.OnDecreaseNum;
+            @IncreaseNum.started += instance.OnIncreaseNum;
+            @IncreaseNum.performed += instance.OnIncreaseNum;
+            @IncreaseNum.canceled += instance.OnIncreaseNum;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -588,6 +647,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @DecreaseNum.started -= instance.OnDecreaseNum;
             @DecreaseNum.performed -= instance.OnDecreaseNum;
             @DecreaseNum.canceled -= instance.OnDecreaseNum;
+            @IncreaseNum.started -= instance.OnIncreaseNum;
+            @IncreaseNum.performed -= instance.OnIncreaseNum;
+            @IncreaseNum.canceled -= instance.OnIncreaseNum;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -619,5 +681,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnRightTrigger(InputAction.CallbackContext context);
         void OnDecreaseNum(InputAction.CallbackContext context);
+        void OnIncreaseNum(InputAction.CallbackContext context);
     }
 }

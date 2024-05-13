@@ -88,9 +88,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         if(sceneName == "CountTheEggs")
         {
-            CountTheEggs minigamesScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
+            CountTheEggs minigameScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
 
-            minigamesScript.DecreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
+            minigameScript.DecreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
         }
     }
 
@@ -114,10 +114,10 @@ public class PlayerInputHandler : MonoBehaviour
         }
         if(sceneName == "CountTheEggs")
         {
-            CountTheEggs minigamesScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
+            CountTheEggs minigameScript = GameObject.Find("MinigameManager").GetComponent<CountTheEggs>();
 
-            minigamesScript.IncreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
-            minigamesScript.SabotagePlayer(playerConfig.PlayerIndex, context.ReadValueAsButton());
+            minigameScript.IncreaseGuessNum(playerConfig.PlayerIndex, context.ReadValueAsButton());
+            minigameScript.SabotagePlayer(playerConfig.PlayerIndex, context.ReadValueAsButton());
         }
     }
 

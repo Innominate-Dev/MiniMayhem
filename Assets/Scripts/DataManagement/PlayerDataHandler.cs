@@ -17,6 +17,8 @@ public class PlayerDataHandler : MonoBehaviour
 
         if (playername == "Player0") { playerId = 0; }
         if (playername == "Player1") { playerId= 1; }
+        if (playername == "Player2") { playerId= 2; }
+        if (playername == "Player3") { playerId= 3; }
 
         mover = GetComponent<Mover2>();
     }
