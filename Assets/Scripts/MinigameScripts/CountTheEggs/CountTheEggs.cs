@@ -121,8 +121,8 @@ public class CountTheEggs : MonoBehaviour
         // ROUND TIMER //
 
         roundTimer -= Time.deltaTime;
-        roundTimer = Mathf.Round(roundTimer * 100f) / 100f;
-        timerText.text = roundTimer.ToString() + "s";
+        float seconds = Mathf.FloorToInt(roundTimer % 60);
+        timerText.text = seconds.ToString() + "s";
         if (roundTimer < 0)
         {
             if (guessamount == amountofeggs)
