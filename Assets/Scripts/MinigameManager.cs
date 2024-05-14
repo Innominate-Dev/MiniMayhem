@@ -15,12 +15,14 @@ public class MinigameManager : MonoBehaviour
 
     [Header("Script References")]
 
+    SceneLoader sceneLoader;
     Mover2 playerMover;
 
     private void Start()
     {
         m_Timer = 5f;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        sceneLoader = GameObject.Find("TransitionManager").GetComponent<SceneLoader>();
     }
 
     private void Update()
@@ -54,7 +56,7 @@ public class MinigameManager : MonoBehaviour
                 GameObject minigame_Player = other.gameObject;
                 gameManager.Player_MinigameHandler(minigame_Player);
                 gameObject.name = m_MinigameName;
-                SceneManager.LoadScene(m_MinigameName);
+                sceneLoader.LoadScene(m_MinigameName);
             }
         }
     }
