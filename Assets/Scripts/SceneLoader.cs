@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public Animator transition;
-    public float transitionTime = 1f;
+    public float transitionTime = 0.25f;
+    SaveDataJSON loadPlayerData;
+    GameManager gameManager;
 
     private void Update()
     {
@@ -19,7 +21,6 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadLevel(sceneName));
-
     }
 
     IEnumerator LoadLevel(string sceneName)
@@ -29,5 +30,25 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(sceneName);
+
+        yield return new WaitForSeconds(1f);
+
+        if(sceneName == "Game" || sceneName == "Board")
+        {
+            Debug.Log("Loading player Data");
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+            
+            gameManager.updatePlayerList();
+
+            // loads players data
+
+            loadPlayerData = GameObject.Find("GameManager").GetComponent<SaveDataJSON>();
+            loadPlayerData.LoadPlayerData();
+        }
+        else
+        {
+            loadPlayerData.SavePlayerData();
+        }
     }
 }

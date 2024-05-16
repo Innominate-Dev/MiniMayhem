@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -55,7 +56,7 @@ public class HitTheTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneLoader = GameObject.Find("GameManager").GetComponent<SceneLoader>();
+        sceneLoader = GameObject.Find("TransitionManager").GetComponent<SceneLoader>();
         roundTimer = 60.0f;
         targetsHitText = GameObject.Find("TargetsHitText").GetComponent<TextMeshProUGUI>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -80,6 +81,7 @@ public class HitTheTarget : MonoBehaviour
         timerText.text = seconds.ToString() + "s";
         if (roundTimer < 0)
         {
+            sceneLoader.LoadScene("Game");
             bool playerStatus = false;
             GameManager.PlayerStatusHandler(playerStatus);
         }
@@ -116,7 +118,10 @@ public class HitTheTarget : MonoBehaviour
 
         if (amountTargetHit == 6)
         {
-            Invoke("LoadScene", 1);
+            sceneLoader.LoadScene("Game");
+
+            bool playerStatus = true;
+            GameManager.PlayerStatusHandler(playerStatus);
         }
 
         float isPressing_lt = lt_AimIn.action.ReadValue<float>();
@@ -207,43 +212,6 @@ public class HitTheTarget : MonoBehaviour
         }
     }
 
-    public void AimDowns(InputAction.CallbackContext context)
-    {
-        //Debug.Log("Rolling Dice" + context.phase);
-
-        if (context.performed)
-        {
-            mainCamera.SetActive(false);
-            aimInCamera.SetActive(true);
-        }
-        else if (context.canceled)
-        {
-            mainCamera.SetActive(true);
-            aimInCamera.SetActive(false);
-        }
-    }
-
-    public void PowerShots(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {
-            if(canUseBow)
-            {
-                GameObject clonedarrow = Instantiate(arrowPrefab, firepoint.position, firepoint.rotation, gameObject.transform);
-                canUseBow = false;
-                arrowRB = clonedarrow.GetComponent<Rigidbody>();
-                arrowRB.isKinematic = false;
-                arrowRB.AddForce(clonedarrow.transform.forward * arrowSpeed, ForceMode.Impulse);
-            }
-        }
-        if(context.canceled)
-        {
-            
-        }
-    }
-
-
-
     public void OnReloadArrow()
     {
 
@@ -257,18 +225,5 @@ public class HitTheTarget : MonoBehaviour
             targetsHitText.text = amountTargetHit.ToString() + "/6";
         }
     }
-
-    private void LoadScene()
-    {
-        /// TRANSITION ///
-
-        /// LOAD SCENE ///
-        SceneManager.LoadScene("Game");
-
-        bool playerStatus = true;
-        GameManager.PlayerStatusHandler(playerStatus);
-
-    }
-
 }
  

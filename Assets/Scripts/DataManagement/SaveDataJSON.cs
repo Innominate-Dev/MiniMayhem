@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Unity.VisualScripting.FullSerializer;
 
 public class SaveDataJSON : MonoBehaviour
 {
-    private List<GameObject> players = new List<GameObject>();
+    private List<GameObject> players;
+    private PlayerData savedPlayerData;
     private bool runOnce;
     private GameManager gameManager;
 
@@ -71,6 +71,20 @@ public class SaveDataJSON : MonoBehaviour
         playerData.PlayerPOS = currentPlayerData.playerPOS;
         playerData.Position = currentPlayer.transform.position;
         playerDataList.playerData.Add(playerData);
+        savedPlayerData = playerData;
+    }
+
+    private void LoadingPlayerDataFromDataList(PlayerDataList playerDataList, GameObject currentPlayer)
+    {
+        PlayerDataHandler currentPlayerData = currentPlayer.GetComponent<PlayerDataHandler>();
+
+        PlayerData playerData = savedPlayerData;
+
+        currentPlayerData.playerId = playerData.PlayerID;
+        currentPlayerData.playername = playerData.Name;
+        currentPlayerData.playerPOS = playerData.PlayerPOS;
+        currentPlayer.transform.position = playerData.Position;
+
     }
 
     private void Update()
@@ -93,19 +107,6 @@ public class SaveDataJSON : MonoBehaviour
                 Debug.LogError("Player List is empty.");
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //make a public method that can be called from all scripts
-
-            Debug.Log("Saving...");
-            playerDataList.playerData.Clear();
-            foreach (GameObject currentPlayer in gameManager.playerList)
-            {
-                UpdatePlayerFromDataList(playerDataList, currentPlayer);
-            }
-            OutputJSON(playerDataList);
-        }
     }
 
     public void OutputJSON(PlayerDataList playerDataList)
@@ -117,5 +118,26 @@ public class SaveDataJSON : MonoBehaviour
         string strOutput2 = JsonUtility.ToJson(playerDataList);
          
         File.WriteAllText(Application.dataPath + "/Scripts/DataManagement" + "/PlayerDataList.txt", strOutput2);
+    }
+
+    public void SavePlayerData()
+    {
+        Debug.Log("Saving...");
+        playerDataList.playerData.Clear();
+        foreach (GameObject currentPlayer in gameManager.playerList)
+        {
+            UpdatePlayerFromDataList(playerDataList, currentPlayer);
+        }
+        OutputJSON(playerDataList);
+    }
+
+    public void LoadPlayerData()
+    {
+        Debug.Log("Loading Data");
+
+        foreach (GameObject currentPlayer in gameManager.playerList)
+        {
+            LoadingPlayerDataFromDataList(playerDataList, currentPlayer);
+        }
     }
 }

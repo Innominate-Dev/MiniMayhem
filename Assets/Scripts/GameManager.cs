@@ -107,6 +107,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void updatePlayerList()
+    {
+        // reloads players into the list
+        diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+        diceController.players = playerList;
+    }
+
     void GameStatusHandler()
     {
         //This Manages what ENUM status the game is currently in.

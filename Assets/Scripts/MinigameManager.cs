@@ -15,6 +15,7 @@ public class MinigameManager : MonoBehaviour
 
     [Header("Script References")]
 
+    SaveDataJSON saveDataJSON;
     SceneLoader sceneLoader;
     Mover2 playerMover;
 
@@ -23,6 +24,7 @@ public class MinigameManager : MonoBehaviour
         m_Timer = 5f;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         sceneLoader = GameObject.Find("TransitionManager").GetComponent<SceneLoader>();
+        saveDataJSON = gameManager.gameObject.GetComponent<SaveDataJSON>();
     }
 
     private void Update()
@@ -54,7 +56,17 @@ public class MinigameManager : MonoBehaviour
             {
                 // if the player is in the trigger and their POS matches the minigame ID it will run the following code.
                 GameObject minigame_Player = other.gameObject;
+                
+                // gets players id for the minigame
+
                 gameManager.Player_MinigameHandler(minigame_Player);
+
+                // save data of the players
+
+                saveDataJSON.SavePlayerData();
+
+                // loading scene
+
                 gameObject.name = m_MinigameName;
                 sceneLoader.LoadScene(m_MinigameName);
             }

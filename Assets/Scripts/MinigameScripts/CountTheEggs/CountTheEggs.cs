@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,9 +14,20 @@ public class CountTheEggs : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI guessingNumText;
     [SerializeField]
-    private Image hand;
+    private List<Image> hands;
+    [SerializeField]
+    private Transform lefthandFinalPOS;
+    [SerializeField]
+    private Transform righthandFinalPOS;
 
+    [SerializeField]
+    private Transform r_OriginalPOS;
+    [SerializeField]
+    private Transform l_OriginalPOS;
+
+    private Transform originalPOS;
     public TextMeshProUGUI timerText;
+    private Image chosen_Hand;
 
     [Header("Variables")]
 
@@ -33,10 +45,15 @@ public class CountTheEggs : MonoBehaviour
     [SerializeField]
     private int guessamount;
 
+    [SerializeField]
+    private float handSpeed = 1f;
+
+    private float smoothTime;
     private float roundTimer;
     private bool cooldown;
+    private bool canSabotage;
     private float inputDelay;
-
+    private float sabotageCooldown;
 
     [Header("Player Input")]
 
@@ -54,6 +71,7 @@ public class CountTheEggs : MonoBehaviour
     private AudioSource deniedsfx; 
 
     GameManager gameManager;
+    private bool sabotageButtonPressed;
 
     private void Start()
     {
@@ -100,6 +118,32 @@ public class CountTheEggs : MonoBehaviour
             {
                 cooldown = false;
                 inputDelay = 0.5f;
+            }
+        }
+
+        // canSabotage
+
+        if (canSabotage == false)
+        {
+            sabotageCooldown -= Time.deltaTime;
+            if (sabotageCooldown < 0)
+            {
+                if (chosen_Hand != null)
+                {
+                    if (chosen_Hand.name == "Left Hand")
+                    {
+                        StartCoroutine(ReturnToPOS(l_OriginalPOS));
+                        Debug.Log("Returning to orignial POS for left");
+
+                    }
+                    if (chosen_Hand.name == "Right Hand")
+                    {
+                        StartCoroutine(ReturnToPOS(r_OriginalPOS));
+                        Debug.Log("Returning to orignial POS for right");
+                    }
+                }
+                canSabotage = true;
+                sabotageCooldown = 2.5f;
             }
         }
 
@@ -162,10 +206,68 @@ public class CountTheEggs : MonoBehaviour
 
     public void SabotagePlayer(int pi, bool isPressed)
     {
-        if (pi != gameManager.m_playerID && isPressed == true)
+        if (pi != gameManager.m_playerID && isPressed == true && canSabotage == true && sabotageButtonPressed == false)
         {
-            Debug.Log("Sabotaging");
+            canSabotage = false;
+            sabotageButtonPressed = true;
+            int range = Random.Range(0, hands.Count);
+
+            chosen_Hand = hands[range];
+
+            if (chosen_Hand.gameObject.name == "Left Hand")
+            {
+                //handSpeed = Mathf.Clamp(handSpeed + Time.deltaTime * smoothTime, 0f, 1f);
+                //chosen_Hand.rectTransform.position = Vector3.Lerp(chosen_Hand.rectTransform.position, lefthandFinalPOS.position, handSpeed);
+                originalPOS = chosen_Hand.transform;
+                StartCoroutine(LerpObject(lefthandFinalPOS));
+            }
+            if (chosen_Hand.gameObject.name == "Right Hand")
+            {
+                //handSpeed = Mathf.Clamp(handSpeed + Time.deltaTime * smoothTime, 0f, 1f);
+                //chosen_Hand.rectTransform.position = Vector3.Lerp(chosen_Hand.rectTransform.position, righthandFinalPOS.position, handSpeed);
+                originalPOS = chosen_Hand.transform;
+                StartCoroutine(LerpObject(righthandFinalPOS));
+            }
         }
+
+    }
+
+    IEnumerator LerpObject(Transform endPoint)
+    {
+
+        float timeOfTravel = 5; //time after object reach a target place 
+        float currentTime = 0; // actual floting time 
+        float normalizedValue = 0;
+
+        while (currentTime <= timeOfTravel)
+        {
+            currentTime += Time.deltaTime;
+            normalizedValue = currentTime / timeOfTravel; // we normalize our time 
+
+            chosen_Hand.rectTransform.position = Vector3.Lerp(chosen_Hand.rectTransform.position, endPoint.position, normalizedValue);
+            yield return null;
+        }
+    }
+
+    IEnumerator ReturnToPOS(Transform endPoint)
+    {
+
+        float timeOfTravel = 17; //time after object reach a target place 
+        float currentTime = 0; // actual floting time 
+        float normalizedValue;
+        float step;
+        
+
+        while (currentTime <= timeOfTravel)
+        {
+            step = handSpeed * Time.deltaTime;
+            currentTime += Time.deltaTime;
+            normalizedValue = currentTime / timeOfTravel; // we normalize our time 
+
+            chosen_Hand.rectTransform.position = Vector3.MoveTowards(chosen_Hand.rectTransform.position, endPoint.position, step);
+            yield return null;
+        }
+        sabotageButtonPressed = false;
     }
 
 }
