@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class SaveDataJSON : MonoBehaviour
@@ -71,19 +72,12 @@ public class SaveDataJSON : MonoBehaviour
         playerData.PlayerPOS = currentPlayerData.playerPOS;
         playerData.Position = currentPlayer.transform.position;
         playerDataList.playerData.Add(playerData);
-        savedPlayerData = playerData;
+        playerData = savedPlayerData;
     }
 
     private void LoadingPlayerDataFromDataList(PlayerDataList playerDataList, GameObject currentPlayer)
     {
         PlayerDataHandler currentPlayerData = currentPlayer.GetComponent<PlayerDataHandler>();
-
-        PlayerData playerData = savedPlayerData;
-
-        currentPlayerData.playerId = playerData.PlayerID;
-        currentPlayerData.playername = playerData.Name;
-        currentPlayerData.playerPOS = playerData.PlayerPOS;
-        currentPlayer.transform.position = playerData.Position;
 
     }
 
@@ -134,10 +128,19 @@ public class SaveDataJSON : MonoBehaviour
     public void LoadPlayerData()
     {
         Debug.Log("Loading Data");
-
         foreach (GameObject currentPlayer in gameManager.playerList)
         {
-            LoadingPlayerDataFromDataList(playerDataList, currentPlayer);
+            PlayerDataHandler currentPlayerData = currentPlayer.GetComponent<PlayerDataHandler>();
+            PlayerData playerData = playerDataList.playerData
+               .FirstOrDefault(pd => pd.Name == currentPlayerData.playername);
+            if (playerData != null)
+            {
+                currentPlayerData.playerPOS = playerData.PlayerPOS;
+                currentPlayerData.SetPlayerPOS(playerData.PlayerPOS);
+                currentPlayer.transform.position = playerData.Position;
+
+                // Load other data as needed
+            }
         }
     }
 }

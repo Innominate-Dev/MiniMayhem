@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     DiceController diceController;
+    SaveDataJSON playerData;
 
     public GameState gameState;
 
@@ -44,27 +45,28 @@ public class GameManager : MonoBehaviour
     {
         // If there is an instance, and it's not me, delete myself.
 
-        if (Instance != null)
-        {
-            Debug.Log("Making Singleton");
-        }
-        else
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
         roundtimer = 60.0f;
+        playerData = GameObject.Find("GameManager").GetComponent<SaveDataJSON>();
         diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
         diceController.players = playerList;
     }
 
     private void Update()
     {
-
+        UpdatePlayerList();
     }
 
     public void Player_MinigameHandler(GameObject playerObj)
@@ -107,16 +109,54 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void updatePlayerList()
+    public void clearLists()
     {
         // reloads players into the list
-        diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
-        diceController.players = playerList;
+        playerList.Clear();
+        minigameplayer.Clear();
+        spectator.Clear();
+
+        UpdatePlayerList();
     }
 
-    void GameStatusHandler()
+    void UpdatePlayerList()
     {
-        //This Manages what ENUM status the game is currently in.
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (playerList.Count == 0 && sceneName == "Game" || sceneName == "Board")
+        {
+            Debug.Log("Adding players");
+            diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+            foreach (GameObject player in diceController.players)
+            {
+                playerList.Add(player);
+            }
+        }
+    }
+
+    public void GameStatusHandler(string sceneName)
+    {
+        if (sceneName == "Game" || sceneName == "Board")
+        {
+            clearLists();
+
+            // loading data
+
+            StartCoroutine(loadingData());
+        }
+    }
+
+    IEnumerator loadingData()
+    {
+
+        yield return new WaitForSeconds(0.5f);
+
+        UpdatePlayerList();
+
+        Debug.Log("Loading player Data");
+        playerData = GameObject.Find("GameManager").GetComponent<SaveDataJSON>();
+        playerData.LoadPlayerData();
     }
 
 }

@@ -9,7 +9,7 @@ public class Mover2 : MonoBehaviour
     [SerializeField]
     private float MoveSpeed = 3f;
 
-    public int playerPOS = 0;
+    public int playerPOS;
     public bool canMove = false;
     public bool isMoving = false;
 

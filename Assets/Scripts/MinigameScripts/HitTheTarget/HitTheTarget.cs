@@ -81,7 +81,7 @@ public class HitTheTarget : MonoBehaviour
         timerText.text = seconds.ToString() + "s";
         if (roundTimer < 0)
         {
-            sceneLoader.LoadScene("Game");
+            sceneLoader.LoadScene("Board");
             bool playerStatus = false;
             GameManager.PlayerStatusHandler(playerStatus);
         }

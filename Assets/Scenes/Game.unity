@@ -537,7 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 2
 --- !u!1 &65866413
@@ -2774,7 +2774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 1
 --- !u!1 &331294491
@@ -6000,7 +6000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 6
 --- !u!1 &593710841
@@ -6436,7 +6436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 5
 --- !u!1 &627678693
@@ -8216,7 +8216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795754198}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0eb564b0057d87449f69b01b92f3b2d, type: 3}
   m_Name: 
@@ -11004,7 +11004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 4
 --- !u!1 &1231883964
@@ -16646,7 +16646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: 10
   isPlayerInTrigger: 0
-  m_MinigameName: CountTheEggs
+  m_MinigameName: HitTheTarget
   gameManager: {fileID: 0}
   m_MinigameID: 3
 --- !u!1 &1946879577

@@ -9,6 +9,8 @@ public class PlayerDataHandler : MonoBehaviour
     public int playerId;
     public int playerPOS;
 
+    private bool updatingPOS;
+
     Mover2 mover;
 
     private void Start()
@@ -25,6 +27,23 @@ public class PlayerDataHandler : MonoBehaviour
 
     private void Update()
     {
-        playerPOS = mover.playerPOS;
+        if (mover.playerPOS != 0 && updatingPOS == false)
+        {
+            playerPOS = mover.playerPOS;
+        }
+
+        Debug.Log(playerPOS + " mover POS -> " + mover.playerPOS);
+    }
+
+    public void SetPlayerPOS(int newPOS)
+    {
+        updatingPOS = true;
+        Debug.Log(gameObject.name + playerPOS + " NEW POS ->" + newPOS);
+
+        mover.playerPOS = newPOS;
+        mover.index = newPOS;
+        playerPOS = newPOS;
+
+        updatingPOS = false;
     }
 }

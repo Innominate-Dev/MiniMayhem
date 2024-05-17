@@ -1,1 +1,1 @@
-{"playerData":[{"Name":"Player0","PlayerID":0,"Position":{"x":-10.52946949005127,"y":1.0100194215774537,"z":-29.00704574584961},"PlayerPOS":3},{"Name":"Player1","PlayerID":1,"Position":{"x":-20.143999099731447,"y":0.02499997615814209,"z":-29.139999389648439},"PlayerPOS":0}]}
+{"playerData":[{"Name":"Player0","PlayerID":0,"Position":{"x":-1855.27001953125,"y":2.440004825592041,"z":334.7840270996094},"PlayerPOS":0}]}

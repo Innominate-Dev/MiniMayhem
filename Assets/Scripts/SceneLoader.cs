@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 0.25f;
-    SaveDataJSON loadPlayerData;
+    SaveDataJSON playerData;
     GameManager gameManager;
 
     private void Update()
@@ -31,24 +31,15 @@ public class SceneLoader : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
 
-        yield return new WaitForSeconds(1f);
-
-        if(sceneName == "Game" || sceneName == "Board")
+        if (sceneName == "Game" || sceneName == "Board")
         {
-            Debug.Log("Loading player Data");
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-            
-            gameManager.updatePlayerList();
-
-            // loads players data
-
-            loadPlayerData = GameObject.Find("GameManager").GetComponent<SaveDataJSON>();
-            loadPlayerData.LoadPlayerData();
+            gameManager.GameStatusHandler(sceneName);
         }
         else
         {
-            loadPlayerData.SavePlayerData();
+            playerData = GameObject.Find("GameManager").GetComponent<SaveDataJSON>();
+            playerData.SavePlayerData();
         }
     }
 }
